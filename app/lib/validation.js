@@ -1,20 +1,15 @@
-import { email, object, string } from "zod";
+import { VALID_CATEGORIES } from "@/app/constantes";
+import { email, object, string, enum as zEnum } from "zod";
 
-function required(
-  factory,
-  fieldName,
-  errorMsg
-){
-  return factory({
-    error: (issue) => (issue.input === undefined ? `${fieldName} is required` : errorMsg),
-  });
-};
+// form validation
 
-export const LoginForm = object({ 
-  email: required(email, 'Email', 'Invalid email format'),
-  password: required(string, 'Password', 'Password should be a text')
+export const LoginForm = object({
+  email: email('Invalid email format'),
+  password: string('Password should be a text').min(1, 'Password is required')
 });
 
 export const ChangeCategoryForm = object({
-  category: required(string, 'Category', 'Category should be a text')
+  category: zEnum(VALID_CATEGORIES, {
+    error: `Catégorie invalide. Valeurs possibles : ${VALID_CATEGORIES.join(", ")}`,
+  }),
 })
