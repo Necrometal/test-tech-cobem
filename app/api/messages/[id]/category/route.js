@@ -1,12 +1,14 @@
-import { NextResponse } from "next/server";
 import {
   getMessageById,
   updateMessageCategory,
-  VALID_CATEGORIES,
 } from "@/app/lib/store";
+import { ChangeCategoryForm } from "@/app/lib/validation";
+import { withErrorHandling } from "@/app/lib/with-error-handling";
+import { NextResponse } from "next/server";
+import { z } from "zod";
 
 // PATCH /api/messages/:id/category  body: { "category": "facture" }
-export async function PATCH(request, { params }) {
+export const PATCH = withErrorHandling(async (request, { params }) => {
   const { id } = await params;
 
   let body;
@@ -16,14 +18,16 @@ export async function PATCH(request, { params }) {
     return NextResponse.json({ error: "Body JSON attendu" }, { status: 400 });
   }
 
-  const { category } = body;
-
-  if (!VALID_CATEGORIES.includes(category)) {
+  // valider la requete
+  const { data, success, error } = ChangeCategoryForm.safeParse(body);
+  if (!success) {
     return NextResponse.json(
-      { error: `Catégorie invalide. Valeurs possibles : ${VALID_CATEGORIES.join(", ")}` },
+      { error: "Champs invalides", details: z.flattenError(error).fieldErrors },
       { status: 400 }
     );
   }
+
+  const { category } = data;
 
   if (!getMessageById(id)) {
     return NextResponse.json({ error: "Message introuvable" }, { status: 404 });
@@ -31,4 +35,4 @@ export async function PATCH(request, { params }) {
 
   const updated = updateMessageCategory(id, category);
   return NextResponse.json({ message: updated });
-}
+});
