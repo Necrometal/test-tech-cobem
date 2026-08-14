@@ -1,4 +1,5 @@
-import { email, object, string } from "zod";
+import { email, enum as zEnum, object, string } from "zod";
+import { VALID_CATEGORIES } from "@/app/constantes";
 
 export const LoginForm = object({
   email: email('Invalid email format'),
@@ -6,5 +7,7 @@ export const LoginForm = object({
 });
 
 export const ChangeCategoryForm = object({
-  category: string('Category should be a text').min(1, 'Category is required')
+  category: zEnum(VALID_CATEGORIES, {
+    error: `Catégorie invalide. Valeurs possibles : ${VALID_CATEGORIES.join(", ")}`,
+  }),
 })
