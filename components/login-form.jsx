@@ -21,7 +21,7 @@ export default function LoginForm(){
     },
     onError: (e) => {
       setError({
-        server: 'An error was occured'
+        server: e.message
       })
     }
   });
