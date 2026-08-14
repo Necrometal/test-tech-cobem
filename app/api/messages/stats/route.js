@@ -4,9 +4,13 @@ import { NextResponse } from "next/server";
 // GET /api/messages/stats
 // Retourne le nombre de messages par catégorie ainsi que le total.
 export async function GET() {
-  const result = getStats()
+  try{
+    const result = getStats()
 
-  return NextResponse.json({
-    ...result
-  });
+    return NextResponse.json({
+      ...result
+    });
+  }catch(e){
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+  }
 }
