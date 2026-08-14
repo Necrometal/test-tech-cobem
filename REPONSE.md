@@ -3,22 +3,22 @@
 ## Anomalie trouvé:
 
 1. Donnée stats incohérent
-  - Symptôme: Quand on change de category d'email, seul l'api liste message sait que l'email a été mise à jour
+  - Symptôme: Quand on change de category d'email, seul l'api liste message sait que l'email a été mise à jour mais l'api du stat ne sait pas
   - Cause: Etant donnée que l'api liste message et changement de category partage le même variable qui stocke les emails pour leur traitement, et que leurs api change seulement les valeurs dans ce variable, l'api de stats n'a pas accès à ce changement car notre base de données `message.json` n'a pas été update
-  - Correction: créer une variable globale pour que chaque api de traitement de message ait accès au changement de données (en se basant juste que le store sera reinitialiser à chaque redémarrage)
+  - Correction: J'ai fait en sorte que l'api de stat ait accès au flux du messages en utilisant le getAllMessage au lieu de reprendre via le Json
   - 40 min pour trouver et traiter l'anomalie,
 
 2. Donnée en surplus dans le filtre de mail
   - Symptôme: Si on choisit `client` comme category de filtre, ca retourne aussi le mails avec category `client-vip` et `reclamation-client`
-  - Cause: Le filtre utilisé check seulement le substring, non la valeur éxacte
+  - Cause: Le filtre utilisé check seulement le substring, non la valeur éxacte, car ici avec includes il verifie le text non un tableau de text ce qui entre en conflit avec la vérification
   - Correction: mettre `regex` pour checker le category
-  - 30 min pour traiter l'anomalie et refactoriser le code
+  - 30 min pour trouver, traiter l'anomalie et refactoriser le code
 
 3. Login pas de validation
   - Symptômes: Si on ne met pas de `password` ou `email`, le retour reste `Identifiant invalides`, ce qui brise le côté UX même si c'est juste un api
-  - Cause: le traitement n'a pas de traitement de request pour les paramètres envoyés
+  - Cause: le traitement n'a pas de traitement de validation de request pour les paramètres envoyés
   - Correction: Mettre un système de validation `email` et `password` pour l'UX
-  - Techniques: utiliser `Zod` pour la validation
+  - Techniques: utiliser `Zod` pour la validation, meme si on utilise pas typescript, l'utilisé ne changera rien en notre validation lorsqu'on switchera vers typescript
   - 20 min pour traiter l'anomalie
 
 4. Classement mail pas de validation
@@ -34,4 +34,11 @@
   - Correction: mettre en place un gestion d'erreur
   - Techniques: un `try{}catch{}` dans le controlleur pour intercepter les erreurs des traitement
   - l'anomalie est traité lors du traitement des autres
+
+## Mise en place la protection des api
+
+- En utilisant le middleware de next j'ai verifier si le token du `Bearer` existe
+- En utilisant `jose` comme recommandé par Next.js dans sa documentation, cela me permet de verifier si le token est valide, précisement si le token a été créée avec notre clé JWT. Et vu qu'on a pas un system de mail specifique à l'utilisateur connecté, on avait pas besoin de verifier si l'utilisateur a droit sur un `api/messages` et `api/messages/:id/category` specifique
+
+30min pour mettre en place la protection
     
