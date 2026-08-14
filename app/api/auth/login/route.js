@@ -13,17 +13,17 @@ export async function POST(request) {
   } catch (e) {
     return NextResponse.json({ error: "Requête invalide" }, { status: 400 });
   }
-
-  // valider la requete
-  const { data, success, error } = LoginForm.safeParse(body);
-  if (!success) {
-    return NextResponse.json(
-      { error: "Champs invalides", details: z.flattenError(error).fieldErrors },
-      { status: 400 }
-    );
-  }
   
   try {
+    // valider la requete
+    const { data, success, error } = LoginForm.safeParse(body);
+    if (!success) {
+      return NextResponse.json(
+        { error: "Champs invalides", details: z.flattenError(error).fieldErrors },
+        { status: 400 }
+      );
+    }
+    
     // check credential
     if(!checkCredential(data)) {
       return NextResponse.json({ error: "Identifiants invalides" }, { status: 401 });
