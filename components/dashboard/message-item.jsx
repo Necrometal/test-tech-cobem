@@ -2,7 +2,6 @@
 
 import { CATEGORY_TOUT, VALID_CATEGORIES } from "@/app/constantes";
 import { formatDate } from "@/app/lib/date";
-import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import Badge from "../badge";
 
@@ -21,7 +20,7 @@ export default function MessageItem({ message, isPending, updateCategory }){
     <div
       className={`w-full flex gap-2 items-center h-8 mb-1 ${message.read && 'bg-gray-300'}`}
     >
-      <Link href={`/dashboard/${message.id}`}  className="flex gap-2 items-center justify-between flex-1">
+      <div className="flex gap-2 items-center justify-between flex-1">
         <div className="flex gap-2 items-center">
           <div>{message.from.name} - </div>
           <div>{message.subject}</div>
@@ -31,7 +30,7 @@ export default function MessageItem({ message, isPending, updateCategory }){
           <div>{formatDate(message.receivedAt, "medium")}</div>
           
         </div>
-      </Link>
+      </div>
       <select
         value={message.category}
         onChange={(e) => handleChange(message.id, e.target.value)}
