@@ -38,7 +38,7 @@ export default function Sidebar({category}){
             <Link key={`c-${c}`} href={`/dashboard?category=${c}`} className="flex justify-between items-center gap-2">
               {c}
               {
-                data?.byCategory?.[c] && <Badge className="ml-2" value={data?.byCategory?.[c]}/>
+                data?.byCategory?.[c] && data?.byCategory?.[c] > 0 && <Badge className="ml-2" value={data?.byCategory?.[c]}/>
               }
             </Link>
           ))

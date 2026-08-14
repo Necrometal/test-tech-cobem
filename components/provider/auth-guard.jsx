@@ -10,7 +10,6 @@ export default function AuthGuard({ children, mode }) {
 
   useEffect(() => {
     const hasToken = Boolean(getToken())
-    console.log(hasToken)
     if (mode === "protected" && !hasToken) {
       router.replace("/login");
       return;

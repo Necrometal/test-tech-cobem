@@ -18,7 +18,7 @@ export default function MessageItem({ message, isPending, updateCategory }){
 
   return (
     <div
-      className={`w-full flex gap-2 items-center h-8 mb-1 ${message.read && 'bg-gray-300'}`}
+      className={`w-full flex gap-2 items-center h-8 mb-1 ${message.read === true && 'bg-gray-300'}`}
     >
       <div className="flex gap-2 items-center justify-between flex-1">
         <div className="flex gap-2 items-center">

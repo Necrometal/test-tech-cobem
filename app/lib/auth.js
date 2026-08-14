@@ -20,7 +20,6 @@ export async function checkToken(token) {
     })
     return payload
   } catch (error) {
-    console.log('Failed to verify session')
     return null
   }
 }
