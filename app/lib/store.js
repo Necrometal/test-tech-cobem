@@ -1,4 +1,5 @@
 import raw from "@/data/messages.json";
+import { escapeRegExp } from "./utils";
 
 // Store en mémoire : les données sont chargées depuis le fichier JSON au démarrage.
 // (Pas de base de données pour ce projet — le store est réinitialisé à chaque redémarrage.)
@@ -48,7 +49,9 @@ export function getStats(){
  * pour eviter que le controller sois surcharger quand le filtre va augmenter en traitement
  **/ 
 export function filterMail(messages, category){
-  return messages.filter((m) => m.category.includes(category));
+  // return messages.filter((m) => m.category.includes(category));
+  const pattern = new RegExp(`^${escapeRegExp(category)}$`, "i");
+  return messages.filter((m) => pattern.test(m.category));
 }
 
 /**
