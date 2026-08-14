@@ -5,6 +5,7 @@ import {
 } from "@/app/lib/store";
 import { ChangeCategoryForm } from "@/app/lib/validation";
 import { NextResponse } from "next/server";
+import { z } from "zod";
 
 // PATCH /api/messages/:id/category  body: { "category": "facture" }
 export async function PATCH(request, { params }) {
