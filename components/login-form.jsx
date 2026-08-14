@@ -21,6 +21,9 @@ export default function LoginForm(){
     },
     onError: (e) => {
       console.log('error mutation', e)
+      setError({
+        server: 'An error was occured'
+      })
     }
   });
 
@@ -45,6 +48,11 @@ export default function LoginForm(){
 
   return (
     <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+      {
+        error?.server && (
+          <span className="text-red-500">{error?.server}</span>
+        )
+      }
       <InputLabel type="email" label="Email:" inputId="email" name="email" errorMsg={error?.email?.join(', ')}/>
       <InputLabel type="password" label="Password:" inputId="password" name="password" errorMsg={error?.password?.join(', ')}/>
       <Button label={`${isPending ? 'loading...' : 'Se connecter'}`} type="submit"/>
