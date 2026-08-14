@@ -1,3 +1,5 @@
+import Sidebar from "@/components/layout/dashboard/sidebar";
+import AuthGuard from "@/components/provider/auth-guard";
 
 export const metadata = {
   title: "MailSort — Dashboard",
@@ -6,9 +8,11 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <div>
-      <h1>dashboard</h1>
-      <div>{children}</div>
-    </div>
+    <AuthGuard mode="protected">
+      <div className="flex gap-4 h-svh">
+        <Sidebar />
+        <div>{children}</div>
+      </div>
+    </AuthGuard>
   );
 }
