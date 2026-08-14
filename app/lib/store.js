@@ -25,6 +25,19 @@ export function updateMessageCategory(id, category) {
   return updated;
 }
 
+export function getStats(){
+  const stats = {};
+
+  for (const message of messages) {
+    stats[message.category] = (stats[message.category] || 0) + 1;
+  }
+
+  return {
+    total: messages.length,
+    byCategory: stats,
+  }
+}
+
 export const VALID_CATEGORIES = [
   "client",
   "client-vip",
