@@ -1,5 +1,7 @@
-import { email, enum as zEnum, object, string } from "zod";
 import { VALID_CATEGORIES } from "@/app/constantes";
+import { email, object, string, enum as zEnum } from "zod";
+
+// form validation
 
 export const LoginForm = object({
   email: email('Invalid email format'),

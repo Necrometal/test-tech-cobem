@@ -45,7 +45,21 @@
 ## Mise en place dashboard
 
 - J'ai utilisé tailwind pour faciliter la mise en forme des ui
-- Le provider AuthGuard me permet de checker si le token existe en localstorage pour rediriger l'utilisateur vers la page attendu. Ex: si on est en login et qu'il y a un token, on va dans dashboard, vice versa. Pour ce qui est la verification exacte du token, notre intercepetor dans `apiFetch` nous permet de resoudre cela, car notre api renvoi deja si le token est invalid.
-- J'ai utilisé Zustand pour mettre en global la gestion d'erreur, pour le moment c'est un erreur à la fois mais avec l'implementation on peut le changer facilement en multi erreur.
+- Le provider AuthGuard me permet de checker si le token existe en localstorage pour rediriger l'utilisateur vers la page attendu. Ex: si on est en login et qu'il y a un token, on va dans dashboard, vice versa. Pour ce qui est la verification exacte du token, notre intercepetor dans `apiFetch` nous permet de resoudre cela en verifiant le status et l'existence du token, car notre api renvoi deja si le token est invalid; il suffit juste de le traiter et de renvoyer dans le login si invalid.
+- J'ai utilisé Zustand pour mettre en global la gestion d'erreur, pour le moment c'est un erreur à la fois mais avec l'implementation on peut le changer facilement en multi erreur. Ce store global nous permet d'utiliser un seul composant pour afficher les erreurs des apis.
+- Tanstack Query pour consommer les apis, ce package permet de mieux gerer les caches (si besoin), facile a declencher un refetch lors d'une manipulation, ex dans la classification de mail, pas besoin de trigger manuellement les fetchs des stats et mail, avec le `onSuccess` de la mutation on réussi a redeclencher ces fetchs sans utiliser des contexts ou variable globales.
+- Un composant `PageLoader` pour afficher un loader de recuperation de la liste des messages
+
 environ 6h pour mettre en place le dashboard fonctionnel et 1h de plus pour la verification de refactor et fix potentiel
     
+
+## Question architecture
+
+- Pour le versioning, vu que la mise à jour depend de l'utilisateur, faudrait un endpoint pour checker s'il y a une mise à jour et versioner les endpoints. Ex: /api/v1 , /api/v2. Cela permet au l'ancienne version de toujours marcher. 
+- L'endpoint de checking permettra aussi d'indiquer à l'utilisateur que sa version sera obselète et qu'il faut qu'il met à jours son application
+- Pour l'auth, le system JWT et Bearer token marche sur tout plateforme que ce soit mobile, web, desktop. le seul hic c'est la durée, dans une application desktop etre déconnecté toutes les 2h n'est pas user friendly, il y a deux options:
+  * mettre la durée tres longue, mais aura une faille de sécurité. 
+  * mettre un system de `refresh token`, qui est le plus plausible, l'utilisateur ne sera pas déconnecté alors que son token change tous les 2h
+- Pour le `CORS`, c'est plustôt spécifique au navigateur qui utilise Js, dont une application d'un origine A appel un api d'origine B, `CORS` est un règle qui permet au navigateur qui fetch l'api s'il a le droit ou pas. Par contre sur un application desktop native qui n'utilise pas de `browser engine`, ca ne s'appliquera pas. Mais vu que notre api est possible d'être consummer par un navigateur, il faudra toujours mettre des CORS permissives qui donnera permission sur certains domaines qui le consommera
+- Actuellement notre api n'a pas de limitation dans les call api, avec le web l'api reste dans notre serveur mais pour les desktop, quiconque qui s'y connait en reverse enginering ou quelqu'un qui possède le endpoint peut en abuser. Donc il faudra mettre des `throttle` et des `limites` d'appelle api par token, ip ou autre forme d'identification d'un appel api
+- En ce moment notre gestion erreur retourne different type d'erreur qui n'a pas de generalisation des codes, qui provoquera un traitement compliqué des erreurs. En utilisant des codes, par exemple '`INVALID_TOKEN`', le consommateur verifira juste ce code pour qu'il sache quel genre d'erreur il doit traiter. Sur le web on peut mettre à jour manuellement même s'il n'y a pas ce code mais sur desktop, on ne peut pas controler la mise à jour, l'erreur pourra changer qui va faire crash l'application. Avec le code on peut juste generaliser le traitement d'erreur qui ne bloquera pas les applications.

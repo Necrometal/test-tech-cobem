@@ -1,5 +1,5 @@
-import raw from "@/data/messages.json";
 import { VALID_CATEGORIES } from "@/app/constantes";
+import raw from "@/data/messages.json";
 import { escapeRegExp } from "./utils";
 
 export { VALID_CATEGORIES };
@@ -52,7 +52,6 @@ export function getStats(){
  * pour eviter que le controller sois surcharger quand le filtre va augmenter en traitement
  **/ 
 export function filterMail(messages, category){
-  // return messages.filter((m) => m.category.includes(category));
   const pattern = new RegExp(`^${escapeRegExp(category)}$`, "i");
   return messages.filter((m) => pattern.test(m.category));
 }

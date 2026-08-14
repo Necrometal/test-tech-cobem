@@ -24,8 +24,7 @@ export async function apiFetch(path, options = {}) {
     },
   });
 
-  // only a 401 on a request that carried a token means "session expired" —
-  // a 401 with no token (e.g. wrong login credentials) is a normal error
+  // seule le status 401 avec un token est véfifié pour l'invalidation du token
   if (res.status === 401 && token) {
     clearToken();
     if (typeof window !== "undefined") window.location.href = "/login";
