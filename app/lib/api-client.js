@@ -24,8 +24,9 @@ export async function apiFetch(path, options = {}) {
     },
   });
 
-  // check for status 401 to disconnect user
-  if (res.status === 401) {
+  // only a 401 on a request that carried a token means "session expired" —
+  // a 401 with no token (e.g. wrong login credentials) is a normal error
+  if (res.status === 401 && token) {
     clearToken();
     if (typeof window !== "undefined") window.location.href = "/login";
     throw new Error("Session expired");
