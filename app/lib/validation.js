@@ -14,3 +14,7 @@ export const LoginForm = object({
   email: required(email, 'Email', 'Invalid email format'),
   password: required(string, 'Password', 'Password should be a text')
 });
+
+export const ChangeCategoryForm = object({
+  category: required(string, 'Category', 'Category should be a text')
+})
