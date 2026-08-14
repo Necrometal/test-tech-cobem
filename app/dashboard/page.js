@@ -12,7 +12,6 @@ export default function Dashboard(){
 
   useEffect(() => {
     if(error){
-      console.log(error)
       setError(error)
     }
   }, [setError, error])
