@@ -1,5 +1,6 @@
 'use client'
 
+import { CATEGORY_TOUT } from "@/app/constantes";
 import { useErrorContext } from "@/app/lib/context/use-error-context";
 import { VALID_CATEGORIES } from "@/app/lib/store";
 import Badge from "@/components/badge";
@@ -17,11 +18,17 @@ export default function Sidebar({category}){
   return (
     <div className="py-2 border-r border-black">
       <div className="border-b border-black px-2 pb-2">
-        <span className="text-xl">Dashboard</span>
+        <span className="text-xl">
+          Dashboard 
+          {
+            isFetching && (<span className="ml-2">loading...</span>)
+          }
+        </span>
       </div>
+
       <div className="flex flex-col gap-4 w-50 px-4 pt-4">
         <Link href={`/dashboard`} className="flex justify-between items-center gap-2">
-          tout
+          { CATEGORY_TOUT }
           {
             data?.total && <Badge className="ml-2" value={data.total}/>
           }

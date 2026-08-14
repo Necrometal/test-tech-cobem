@@ -9,9 +9,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <AuthGuard mode="protected">
-      <div className="flex gap-4 h-svh">
+      <div className="flex h-svh w-svw">
         <Sidebar />
-        <div>{children}</div>
+        <div className="flex-1">{children}</div>
       </div>
     </AuthGuard>
   );
