@@ -20,7 +20,6 @@ export default function LoginForm(){
       router.push("/dashboard");
     },
     onError: (e) => {
-      console.log('error mutation', e)
       setError({
         server: 'An error was occured'
       })
