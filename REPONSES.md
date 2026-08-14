@@ -41,4 +41,11 @@
 - En utilisant `jose` comme recommandé par Next.js dans sa documentation, cela me permet de verifier si le token est valide, précisement si le token a été créée avec notre clé JWT. Et vu qu'on a pas un system de mail specifique à l'utilisateur connecté, on avait pas besoin de verifier si l'utilisateur a droit sur un `api/messages` et `api/messages/:id/category` specifique
 
 30min pour mettre en place la protection
+
+## Mise en place dashboard
+
+- J'ai utilisé tailwind pour faciliter la mise en forme des ui
+- Le provider AuthGuard me permet de checker si le token existe en localstorage pour rediriger l'utilisateur vers la page attendu. Ex: si on est en login et qu'il y a un token, on va dans dashboard, vice versa. Pour ce qui est la verification exacte du token, notre intercepetor dans `apiFetch` nous permet de resoudre cela, car notre api renvoi deja si le token est invalid.
+- J'ai utilisé Zustand pour mettre en global la gestion d'erreur, pour le moment c'est un erreur à la fois mais avec l'implementation on peut le changer facilement en multi erreur.
+environ 6h pour mettre en place le dashboard fonctionnel et 1h de plus pour la verification de refactor et fix potentiel
     
