@@ -1,5 +1,8 @@
 import raw from "@/data/messages.json";
+import { VALID_CATEGORIES } from "@/app/constantes";
 import { escapeRegExp } from "./utils";
+
+export { VALID_CATEGORIES };
 
 // Store en mémoire : les données sont chargées depuis le fichier JSON au démarrage.
 // (Pas de base de données pour ce projet — le store est réinitialisé à chaque redémarrage.)
@@ -64,12 +67,3 @@ export function sortMail(messages){
   );
 }
 
-export const VALID_CATEGORIES = [
-  "client",
-  "client-vip",
-  "reclamation-client",
-  "facture",
-  "newsletter",
-  "spam",
-  "interne",
-];

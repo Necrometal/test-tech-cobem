@@ -1,19 +1,19 @@
 'use client'
 
-import { CATEGORY_TOUT } from "@/app/constantes";
+import { CATEGORY_TOUT, VALID_CATEGORIES } from "@/app/constantes";
 import { useErrorContext } from "@/app/lib/context/use-error-context";
-import { VALID_CATEGORIES } from "@/app/lib/store";
 import Badge from "@/components/badge";
 import { useStat } from "@/hooks/use-mail";
 import Link from "next/link";
+import { useEffect } from "react";
 
 export default function Sidebar({category}){
   const { isFetching, data, error } = useStat()
   const setError = useErrorContext((state) => state.setError)
 
-  if(error){
-    setError(error)
-  }
+  useEffect(() => {
+    if (error) setError(error)
+  }, [error, setError])
 
   return (
     <div className="py-2 border-r border-black">

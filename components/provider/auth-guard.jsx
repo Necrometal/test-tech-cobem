@@ -9,8 +9,8 @@ export default function AuthGuard({ children, mode }) {
   const [checked, setChecked] = useState(false);
 
   useEffect(() => {
-    const hasToken = getToken() !== undefined
-
+    const hasToken = Boolean(getToken())
+    console.log(hasToken)
     if (mode === "protected" && !hasToken) {
       router.replace("/login");
       return;
