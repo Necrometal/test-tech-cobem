@@ -1,4 +1,4 @@
-import { apiFetch } from "@/app/lib/api-client";
+import { apiFetch } from "@/lib/api-client";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 

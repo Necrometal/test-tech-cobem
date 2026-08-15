@@ -1,6 +1,6 @@
-import { filterMail, getAllMessages, sortMail, VALID_CATEGORIES } from "@/app/lib/store";
-import { ChangeCategoryForm } from "@/app/lib/validation";
-import { withErrorHandling } from "@/app/lib/with-error-handling";
+import { filterMail, getAllMessages, sortMail, VALID_CATEGORIES } from "@/lib/store";
+import { ChangeCategoryForm } from "@/lib/validation";
+import { withErrorHandling } from "@/lib/with-error-handling";
 import { NextResponse } from "next/server";
 
 // GET /api/messages

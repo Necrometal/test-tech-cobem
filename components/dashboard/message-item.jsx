@@ -1,7 +1,7 @@
 'use client'
 
-import { CATEGORY_TOUT, VALID_CATEGORIES } from "@/app/constantes";
-import { formatDate } from "@/app/lib/date";
+import { CATEGORY_TOUT, VALID_CATEGORIES } from "@/constantes";
+import { formatDate } from "@/lib/date";
 import { useSearchParams } from "next/navigation";
 import Badge from "../badge";
 

@@ -1,6 +1,6 @@
 'use client'
-import { apiFetch, setToken } from "@/app/lib/api-client";
-import { LoginForm as LoginValidation } from "@/app/lib/validation";
+import { apiFetch, setToken } from "@/lib/api-client";
+import { LoginForm as LoginValidation } from "@/lib/validation";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useState } from "react";

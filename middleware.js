@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { checkToken } from './app/lib/auth';
+import { checkToken } from './lib/auth';
  
 // This function can be marked `async` if using `await` inside
 export async function middleware(request) {

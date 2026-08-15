@@ -1,6 +1,6 @@
-import { checkCredential, JWT_SECRET } from "@/app/lib/auth";
-import { LoginForm } from "@/app/lib/validation";
-import { withErrorHandling } from "@/app/lib/with-error-handling";
+import { checkCredential, JWT_SECRET } from "@/lib/auth";
+import { LoginForm } from "@/lib/validation";
+import { withErrorHandling } from "@/lib/with-error-handling";
 import jwt from "jsonwebtoken";
 import { NextResponse } from "next/server";
 import { z } from "zod";

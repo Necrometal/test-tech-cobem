@@ -1,9 +1,9 @@
 import {
-  getMessageById,
-  updateMessageCategory,
-} from "@/app/lib/store";
-import { ChangeCategoryForm } from "@/app/lib/validation";
-import { withErrorHandling } from "@/app/lib/with-error-handling";
+    getMessageById,
+    updateMessageCategory,
+} from "@/lib/store";
+import { ChangeCategoryForm } from "@/lib/validation";
+import { withErrorHandling } from "@/lib/with-error-handling";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 

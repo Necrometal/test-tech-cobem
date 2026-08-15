@@ -1,8 +1,8 @@
 'use client'
 
-import { CATEGORY_TOUT } from "@/app/constantes";
-import { useErrorContext } from "@/app/lib/context/use-error-context";
+import { CATEGORY_TOUT } from "@/constantes";
 import { useUpdateCategory } from "@/hooks/use-mail";
+import { useErrorContext } from "@/lib/context/use-error-context";
 import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import NoItem from "../layout/no-item";

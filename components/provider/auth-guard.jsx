@@ -1,6 +1,6 @@
 'use client'
 
-import { getToken } from "@/app/lib/api-client";
+import { getToken } from "@/lib/api-client";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 

@@ -1,9 +1,9 @@
 'use client'
 
-import { CATEGORY_TOUT, VALID_CATEGORIES } from "@/app/constantes";
-import { useErrorContext } from "@/app/lib/context/use-error-context";
 import Badge from "@/components/badge";
+import { CATEGORY_TOUT, VALID_CATEGORIES } from "@/constantes";
 import { useStat } from "@/hooks/use-mail";
+import { useErrorContext } from "@/lib/context/use-error-context";
 import Link from "next/link";
 import { useEffect } from "react";
 

@@ -1,6 +1,6 @@
 'use client'
 
-import { useErrorContext } from "@/app/lib/context/use-error-context"
+import { useErrorContext } from "@/lib/context/use-error-context"
 
 export default function ErrorPanel(){
   const error = useErrorContext((state) => state.error)

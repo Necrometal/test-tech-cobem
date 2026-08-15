@@ -1,5 +1,5 @@
-import { getStats } from "@/app/lib/store";
-import { withErrorHandling } from "@/app/lib/with-error-handling";
+import { getStats } from "@/lib/store";
+import { withErrorHandling } from "@/lib/with-error-handling";
 import { NextResponse } from "next/server";
 
 // GET /api/messages/stats
